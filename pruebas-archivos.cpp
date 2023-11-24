@@ -1,53 +1,24 @@
 #include <iostream>
-#include <locale.h>
-#include <limits>
-#include <stdio.h>
-#include <string>
-#include <cmath>
 #include <fstream>
 
 using namespace std;
 
-void lectu ();
-
-int main (){
-    ifstream archivo;
-    string text;
-    archivo.open("prueba.txt",ios::in);
-
-    if(archivo.fail()){
-        ofstream archivo;
-        archivo.open("prueba2.txt",ios::out);
-        if(archivo.fail()){
-            cout<<"ya marica ya";
-            exit(1);
-        }
-        archivo<<"yellow";
-        archivo.close();
+int main() {
+    system("cls");
+    int vector[] = {1, 5, 3, 4},a;
+    ifstream arcivo("prueba6.txt");
+    switch (arcivo.good())
+    {
+    case true:
+        cout<<"yessssss";
+        arcivo.close();
         exit(1);
+        break;
+    
+    default:
+        ofstream archivo("prueba6.txt");
+        cout<<"todo lo que joan ha hecho + llenarlo";
+        break;
     }
-    while(!archivo.eof()){
-
-        getline(archivo,text);
-        cout<<text;
-    }
-    archivo.close();
-
-}
-
-void lectu(){
-    ifstream archivo;
-    string text;
-    archivo.open("prueba.txt",ios::in);
-
-    if(archivo.fail()){
-        cout<<" no abrio";
-        exit(1);
-    }
-    while(!archivo.eof()){
-
-        getline(archivo,text);
-        cout<<text;
-    }
-    archivo.close();
+    cout<<"cliente";
 }

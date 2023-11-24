@@ -11,36 +11,55 @@ Julian Forero 20232020030
 #include <stdio.h>
 #include <string>
 #include <cmath>
+#include <fstream>
+#define MAXVUELO 1000
 
 using namespace std;
 
-struct LIB{
-	string covu;
-	int desti;
-	double year;
-	double mes;
-	double dia;
-	double sturi;
-	double sejecu;
-	double cturi;
-	double cejecu;
-	double cadma;
-};
+// ESTRUCTURA PARA LOS DATOS DE LOS VUELOS
+struct LIB{ 
+	string covu; //covu es la  variable de codigo de vuelo
+	int desti;   //variable de destino
+	double year,mes,dia;
+    int sTotal;
+	double sturi; //sturi pertenece a sillas turista
+	double sejecu;//sejecu pertenece a sillas ejecutivas 
+	double cturi; // costo silla turista
+	double cejecu;//costo silla ejecutiva
+	double cadma;// cadma pertenece a costo adicional de maleta
+}libro[MAXVUELO]; //capacidad maxima de vuelos igual a 1000
 
-bool vanum(double& x);  //validacion si no llega a ser un número
-bool vatrun(double& x); //validacion si no llega a ser un número truncado
+bool vanum(double& x);  //funcion para validacion si no llega a ser un número
+bool vatrun(double& x); // funcion para validacion si no llega a ser un número truncado
 
 int main(){	
-    setlocale(LC_ALL, "spanish");
-    double a,b,c,d,e,f,g,h,i;      //Variables aux. antes de ser las de la estructura
+    setlocale(LC_ALL, "spanish"); //libreria para el uso de caracteres especiles del español
+
     
-    const int maxvuelo = 1000; // Cambia este valor según tus necesidades
-    LIB libro[maxvuelo];
-    int contvuelo = 0;
-    
+    ifstream archivo; // se declara fichero como el nombre de archivo de tipo salida
+
+
+
+    archivo.open("proyecto.txt",ios::in); //se intenta abrir el fichero en modo de lectura
+    if(archivo.fail()){ //este if permite crear el archivo si no esxistey is existe sigue a delante 
+        ofstream archivo; //inicia el archivo para salida
+        archivo.open("proyecto.txt",ios::out); // crea y abre el archivo en tipo escritura, crea el fichero con nombre "proyecto"
+        if(archivo.fail()){ // si hay un error al abrir el archivo...
+            cout<<"error al abrir"; 
+            exit(1);
+        }
+        archivo.close(); //cierra el fichero
+        exit(1);
+    }
+    archivo.close();
+
+
+
+    double a,b,c,d,e,f,g,h,i,j;     //Variables aux. antes de ser las de la estructura
+    int contvuelo = 0, maxvuelo=1000;    
     string confirmacion;
     do{
-    	//Ingreso
+    	//Ingreso de datos de los vuelos
     	fflush(stdin);
 	    cout<<"Hola trabajador, a continuacion ingresa los datos de los vuelos"<<endl;
 	    system("PAUSE");
@@ -63,9 +82,8 @@ int main(){
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
 	    libro[contvuelo].desti=a;
-	    
 		//Fecha
-		cout<<"Ingresa la fecha de partida "<<endl;
+		cout<<"Ingresa la fecha de partida (puede agendar vuelos hasta el 2026)"<<endl;
 		system("PAUSE");
 		cout<<"Año: ";       //b
 		cin>>b;
@@ -77,8 +95,7 @@ int main(){
 	    }else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-		libro[contvuelo].year=b;
-			
+		libro[contvuelo].year=b;			
 		cout<<"Mes (1-12): ";
 		cin>>c;
 		if (vanum(c)) {      //VALIDACION MES 
@@ -95,8 +112,7 @@ int main(){
 	    }else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-	    libro[contvuelo].mes=c;
-		
+	    libro[contvuelo].mes=c;		
 		cout<<"Día: ";                     //d
 		cin>>d;							   //Validacion de días de cada mes
 		if (vanum(d)) {                    //VALIDACION MES 
@@ -133,35 +149,34 @@ int main(){
 	    }else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-		libro[contvuelo].dia=d;
-		
-		
-		
+		libro[contvuelo].dia=d;		
 		//Cant. sillas
+
+        cout<<"ingrese la cantidad de sillas totales que hay para ese vuelo"<<endl;
+        cin>>j;
+        if(vanum(j)){
+            while(j<0){
+                cout<<"el avion debe tener al menos 1 silla disponible, por favor ingrese el valor de nuevo"<<endl;
+                cin>>j;
+            }
+        }else{
+            cout << "Algo salió mal en la validación." << endl;
+        }
+        libro[contvuelo].sTotal=j;
+
 		cout<<"Ingresa la cantidad de sillas disponibles para clase turista:"<<endl;  //e
 		cin>>e;
 		if (vanum(e)) {      //VALIDACION LETRA 
-			while(e<0){
-				cout<<"Por favor ingresa una entrada valida "<<endl;
+			while(e>libro[contvuelo].sTotal){
+				cout<<"este valor exede la cantidad de sillas disponibles, Por favor ingresa una entrada valida "<<endl;
 				cin>>e;	
 			}
 	    } else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
 	    libro[contvuelo].sturi=e;
-	    
-		cout<<"Ingresa la cantidad de sillas disponibles para clase ejecutiva: "<<endl; //f
-		cin>>f;
-		if (vanum(f)) {      //VALIDACION LETRA 
-			while(f<0){
-				cout<<"Por favor ingresa una entrada valida "<<endl;
-				cin>>f;	
-			}
-	    } else {
-	        cout << "Algo salió mal en la validación." << endl;
-	    }
-	    libro[contvuelo].sejecu=f;
-	    
+        libro[contvuelo].sejecu=(libro[contvuelo].sTotal-libro[contvuelo].sturi);
+        cout<<"la cantidad de sillas disponibles para la clase ejecutiva son: "<<libro[contvuelo].sejecu<<endl;
 		//Costo sillas
 		cout<<"Ingresa el costo de sillas para clase turista: "<<endl;  //g
 		cin>>g;
@@ -173,8 +188,7 @@ int main(){
 	    } else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-	    libro[contvuelo].cturi=g;
-	
+	    libro[contvuelo].cturi=g;	
 		cout<<"Ingresa el costo de sillas para clase ejecutiva: "<<endl; //h
 		cin>>h;
 		if (vanum(h)) {      //VALIDACION LETRA 
@@ -185,10 +199,9 @@ int main(){
 	    } else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-	    libro[contvuelo].cejecu=h;
-	    
+	    libro[contvuelo].cejecu=h;	    
 		//Costo maleta adicional
-		cout<<"Ingresa el costo adicional de UND. Maleta adicional: "<<endl;//i
+		cout<<"Ingresa el costo agregado por una Maleta adicional: "<<endl;//i
 		cin>>i;
 		if (vanum(i)) {      //VALIDACION LETRA 
 			while(i<0){
@@ -198,8 +211,7 @@ int main(){
 	    } else {
 	        cout << "Algo salió mal en la validación." << endl;
 	    }
-	    libro[contvuelo].cadma=i;
-	    
+	    libro[contvuelo].cadma=i;	    
 		contvuelo++;
 		if (contvuelo < maxvuelo) {
 	            cout << "¿Desea ingresar más datos? (Ingrese '1' para salir, otra entrada para continuar): ";
@@ -209,7 +221,23 @@ int main(){
 	            break;
 	        }	
 	}while(confirmacion != "1");
-	
+
+    //AGREGANDO LOS DATOS AL FICHERO
+    
+    
+    
+    
+    
+    /*
+    - ABRIR EL FICHERO EN ESCRITURO 
+    - LLENAR LOS DATO DE TODOS LOS VUELOS CON UN CICLO FOR     
+    */
+
+	//APARTADO DEL CLIENTE
+
+
+
+    system("pause");
 	return 0;
 }
 

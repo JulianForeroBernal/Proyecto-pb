@@ -287,6 +287,7 @@ int main(){
                     cout<<setw(14)<<"  "<<libro[i].year;
                     cout<<setw(12)<<"  "<<libro[i].mes;
                     cout<<setw(15)<<"  "<<libro[i].dia<<endl;
+                    cout<<"\t-----------------------------------------------------------------------------------"<<endl;
                 }        
             }
 		}
@@ -300,6 +301,7 @@ int main(){
                         cout<<setw(14)<<"  "<<libro[i].year;
                         cout<<setw(13)<<"  "<<libro[i].mes;
                         cout<<setw(13)<<"  "<<libro[i].dia<<endl;
+                        cout<<"-----------------------------------------------------------------------------------"<<endl;
                     }        
                 }
 		    }
@@ -314,6 +316,7 @@ int main(){
                         cout<<setw(14)<<"  "<<libro[i].year;
                         cout<<setw(13)<<"  "<<libro[i].mes;
                         cout<<setw(13)<<"  "<<libro[i].dia<<endl;
+                        cout<<"-----------------------------------------------------------------------------------"<<endl;
                     }        
                 }
 		    }
@@ -336,9 +339,13 @@ int main(){
                 cout<<"sillas en clase ejecutiva: "<<libro[y].sejecu<<" con costo: "<<libro[y].cejecu<<endl;
                 system("pause");
                 system("cls");
-                cout<<"Ahora por favor selecciona una opción de clase para su vuelo: (1-2) "<<endl;
-                cout<<"[1] Ejecutiva "<<endl;
-                cout<<"[2] Turista "<<endl;
+                cout<<"-----------------------------------------------------------------------"<<endl;
+                cout<<"| Ahora por favor selecciona una opción de clase para su vuelo: (1-2) |"<<endl;
+                cout<<"-----------------------------------------------------------------------"<<endl;
+                cout<<"| [1] Ejecutiva |"<<endl;
+                cout<<"-----------------"<<endl;
+                cout<<"| [2] Turista   |"<<endl;
+                cout<<"-----------------"<<endl;
                 double resillas=0;
                 int costotal=0, saux1,saux2;
                 if (vanum(cl)) {      //VALIDACION LETRA 
@@ -352,11 +359,13 @@ int main(){
                 if(cl==1){
                     system("cls");
                     cls="ejecuitva";
-                    cout<<"\nCLASE EJECUTIVA\n";
+                    cout<<"\n\t\t-------------------"<<endl;
+                    cout<<"\t\t| CLASE EJECUTIVA |\n";
+                    cout<<"\t\t-------------------"<<endl;
                     if(libro[y].sejecu<0){
                         cout<<"lastimosamente no hay sillas disponibles";
                     }else{
-                        cout<<"Ingrese cuantas sillas de clase ejecutiva desea reservar: ";
+                        cout<<"* Ingrese cuantas sillas de clase ejecutiva desea reservar: ";
                         if (vanum(resillas)) {      //VALIDACION LETRA 
                         while(vatrun(resillas) == false){
                             cout<<"Por favor ingresa un número de las opciones "<<endl;
@@ -370,10 +379,11 @@ int main(){
                         }
                         libro[y].sejecu=libro[y].sejecu-resillas;
                         costotal=libro[y].cejecu*resillas;
+                        vuelo[y].rcsilla=resillas;
                     }
                     //Pasajeros
-                    cout<<"\nA continuación ingresa los pasajeros "<<endl;
-                    cout<<"Ingresa la cantidad de adultos: ";
+                    cout<<"\n\t A continuación ingresa los pasajeros "<<endl;
+                    cout<<"\n* Ingresa la cantidad de adultos: ";
                     if (vanum(adul)) {      //VALIDACION LETRA 
                         while(vatrun(adul) == false or adul<1 ){        //***FALTA VALIDACION PARA QUE NO SOBREPASE LAS SILLAS QUE HAY****
                             cout<<"Minimo debe ir un adulto, ingresa un número permitido: "<<endl;
@@ -385,11 +395,12 @@ int main(){
                     saux2=resillas;
                     while(adul>saux2){
                         cout<<"este valor exede las sillas que reservo, ingreselo denuevo";
-                        cin>>adul;
+                        cin>>adul;  
                     }
+                    vuelo[y].radul=adul;
                     saux1=resillas-adul;
                     if(saux1>0){
-                        cout<<"\nIngresa la cantidad de niños: (digita 0 si no va ningun niño)"<<endl;
+                        cout<<"\n* Ingresa la cantidad de niños: (digita 0 si no va ningun niño)"<<endl;
                         if (vanum(nino)) {      //VALIDACION LETRA 
                             while(vatrun(nino) == false or nino<0){         //***FALTA VALIDACION PARA QUE NO SOBREPASE LAS SILLAS QUE HAY****
                             cout<<"Por favor ingresa un número permitido "<<endl;
@@ -403,13 +414,16 @@ int main(){
                                 cout<<"exedio la cantidad de sillas que quedan ingrese el valor de nuevo";
                                 cin>>nino;
                             }
+                            vuelo[y].rnino=nino;
                         }    
                     }
                 }
                 if(cl==2){
                     system("cls");
                     cls="turista";
-                    cout<<"\nCLASE TURISTA.\n";
+                    cout<<"\n\t-----------------"<<endl;
+                    cout<<"\t\t| CLASE TURISTA |\n";
+                    cout<<"\t\t-----------------"<<endl;
                     if(libro[y].sturi<0){
                         cout<<"lastimosamente no hay sillas disponibles";
                     }else{
@@ -427,10 +441,11 @@ int main(){
                         }
                         libro[y].sturi=libro[y].sturi-resillas;
                         costotal=libro[y].cturi*resillas;
+                        vuelo[y].rcsilla=resillas;
                     }
                     //Pasajeros
-                    cout<<"\nA continuación ingresa los pasajeros. "<<endl;
-                    cout<<"Ingresa la cantidad de adultos: ";
+                    cout<<"\n\tA continuación ingresa los pasajeros. "<<endl;
+                    cout<<"* Ingresa la cantidad de adultos: ";
                     if (vanum(adul)) {      //VALIDACION LETRA 
                         while(vatrun(adul) == false or adul<1 ){        //***FALTA VALIDACION PARA QUE NO SOBREPASE LAS SILLAS QUE HAY****
                             cout<<"Minimo debe ir un adulto, ingresa un número permitido: "<<endl;
@@ -444,9 +459,10 @@ int main(){
                         cout<<"\neste valor exede las sillas que reservo, ingreselo denuevo";
                         cin>>adul;
                     }
+                    vuelo[y].radul=adul;
                     saux1=resillas-adul;
                     if(saux1>0){
-                        cout<<"\nIngresa la cantidad de niños: (digita 0 si no va ningun niño)"<<endl;
+                        cout<<"\n* Ingresa la cantidad de niños: (digita 0 si no va ningun niño)"<<endl;
                         if (vanum(nino)) {      //VALIDACION LETRA 
                             while(vatrun(nino) == false or nino<0){         //***FALTA VALIDACION PARA QUE NO SOBREPASE LAS SILLAS QUE HAY****
                             cout<<"Por favor ingresa un número permitido "<<endl;
@@ -460,16 +476,17 @@ int main(){
                                 cout<<"exedio la cantidad de sillas que quedan ingrese el valor de nuevo";
                                 cin>>nino;
                             }
+                            vuelo[y].rnino=nino;
                         }
                     }
 
                 }    
             
                 //Maletas Adicionales
-                cout<<"¿Desea añadir maletas adicionales? ('1':sí otro para no)"<<endl;
+                cout<<"\n\t¿Desea añadir maletas adicionales? ('1':sí otro para no)"<<endl;
                 cin>>s;
                 if(s=="1"){
-                    cout<<"El costo por maleta adicional es "<<libro[y].cadma<<"\nCuantas maletas adicionales desea añadir: "<<endl;
+                    cout<<"* El costo por maleta adicional es "<<libro[y].cadma<<"\nCuantas maletas adicionales desea añadir: ";
                     if (vanum(mal)) {      //VALIDACIÓN LETRA 
                     while(vatrun(mal) == false or mal<0){
                         cout<<"Por favor ingresa un número valido "<<endl;
@@ -478,22 +495,34 @@ int main(){
                     }else{
                         cout << "Algo salió mal en la validación." << endl;
                     } 
+                    costotal=costotal+(mal*libro[y].cadma);
+                    vuelo[y].radma=mal;
                 }
-                costotal=costotal+(mal*libro[y].cadma);
+                
 
                 //Resúmen y confirmación
                 system("pause");
                 system("cls");
-			    cout<<"\n\n****SU RESERVA VA ASI:****\n\n"<<endl;
+			    cout<<"\n\n\t****SU RESERVA VA ASI:****\n";
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Codigo de vuelo: "<<libro[y].covu<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Destino: "<<lugar<<endl;
-                cout<<"Fecha: AA:"<<libro[y].year<<" MM: "<<libro[y].mes<<" DD: "<<libro[y].dia<<endl;
+                cout<<"----------------------------------------"<<endl;
+                cout<<"Fecha: AA: "<<libro[y].year<<" MM: "<<libro[y].mes<<" DD: "<<libro[y].dia<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Clase: "<<cls<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Pasajeros adultos: "<<adul<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Pasajeros niños: "<<nino<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Maletas adicionales: "<<mal<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"Costo total de la reserva: "<<costotal<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"\n\nSeleccione una opción: (1-2) "<<endl;
+                cout<<"----------------------------------------"<<endl;
                 cout<<"[1] Guardar"<<endl;
                 cout<<"[2] Repetir reserva"<<endl;
                 if (vanum(confin)) {      //VALIDACIÓN LETRA 
@@ -503,12 +532,9 @@ int main(){
                 }
                 }else{
                     cout << "Algo salió mal en la validación." << endl;
-                } 
-                
+                }                 
             }
-            y++;
-            
-
+            y++;          
         }
 		if(confin == 1){
 			info=false;
@@ -520,16 +546,108 @@ int main(){
 		}
 		contadorv++;	
 	} 
-    cout<<"Su reserva ha sido realizada!";
-
+    int consul, respf;
+    string codic;
+    cout<<"Su reserva ha sido realizada!"<<endl;
+    do{
+        system("cls");  
+        cout<<"\t*****************************************************************************"<<endl;
+        cout<<"\t*                             BUSQUEDA                                      *"<<endl;
+        cout<<"\t*****************************************************************************"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"Prseione 1 si desea consultar las sillas reservadas del vuelo"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"Prseione 2 si desea consultar los adultos y niños del vuelo"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"Prseione 3 si desea consultar las maletas adicionales del vuelo"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        cout<<"Presione 0 si no desea consultar nada"<<endl;
+        cout<<"------------------------------------------------------------------"<<endl;
+        cin>>consul;
+        while(consul!=1 && consul!=2 && consul!=3 && consul!=0){
+            cout<<"porfavor ingrese un valor permitido";
+            cin>>consul;
+        }
+        system("cls");
+        if (consul==1){
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t*                                VUELOS                                           *"<<endl;
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t|   DESTINO   |  CODIGO DE VUELO  | AÑO DE SALIDA | MES DE SALIDA | DIA DE SALIDA |"<<endl;
+            for (int i=0;i<contvuelo;i++){ 
+                cout<<"\t    "<<libro[i].desti;
+                cout<<setw(12)<<"  "<<libro[i].covu;
+                cout<<setw(14)<<"  "<<libro[i].year;
+                cout<<setw(12)<<"  "<<libro[i].mes;
+                cout<<setw(15)<<"  "<<libro[i].dia<<endl;
+                cout<<"\t-----------------------------------------------------------------------------------"<<endl;                   
+            }
+            cout<<"Para el destino: 1 representa Paris, 2 Yakarta y 3 El Cairo"<<endl;
+            cout<<"\nPor favor digite el codigo del vuelo que desea consultar: ";
+            cin>>codic;
+            for(int m=0;m<contvuelo;m++){
+                if(libro[m].covu==codic)
+                cout<<"\n Las cantidad de sillas reservadas para el vuelo con codigo "<<codic<<" es: "<<vuelo[m].rcsilla<<endl;
+            }
+        }
+        if (consul==2){
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t*                                VUELOS                                           *"<<endl;
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t|   DESTINO   |  CODIGO DE VUELO  | AÑO DE SALIDA | MES DE SALIDA | DIA DE SALIDA |"<<endl;
+            for (int i=0;i<contvuelo;i++){
+                cout<<"\t    "<<libro[i].desti;
+                cout<<setw(12)<<"  "<<libro[i].covu;
+                cout<<setw(14)<<"  "<<libro[i].year;
+                cout<<setw(12)<<"  "<<libro[i].mes;
+                cout<<setw(15)<<"  "<<libro[i].dia<<endl;
+                cout<<"\t-----------------------------------------------------------------------------------"<<endl;
+                    
+            }
+            cout<<"Para el destino: 1 representa Paris, 2 Yakarta y 3 El Cairo"<<endl;
+            cout<<"\nPor favor digite el codigo del vuelo que desea consultar: ";
+            cin>>codic;
+            for(int m=0;m<contvuelo;m++){
+                if(libro[m].covu==codic)
+                cout<<"\n Las cantidad de adultos en el vuelo es: "<<vuelo[m].radul<<" y de niños es: "<<vuelo[m].rnino<<endl;
+            }
+            
+        }
+        if (consul==3){
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t*                                VUELOS                                           *"<<endl;
+            cout<<"\t***********************************************************************************"<<endl;
+            cout<<"\t|   DESTINO   |  CODIGO DE VUELO  | AÑO DE SALIDA | MES DE SALIDA | DIA DE SALIDA |"<<endl;
+            for (int i=0;i<contvuelo;i++){ 
+                cout<<"\t    "<<libro[i].desti;
+                cout<<setw(12)<<"  "<<libro[i].covu;
+                cout<<setw(14)<<"  "<<libro[i].year;
+                cout<<setw(12)<<"  "<<libro[i].mes;
+                cout<<setw(15)<<"  "<<libro[i].dia<<endl;
+                cout<<"\t-----------------------------------------------------------------------------------"<<endl;                   
+            }
+            cout<<"Para el destino: 1 representa Paris, 2 Yakarta y 3 El Cairo"<<endl;
+            cout<<"\nPor favor digite el codigo del vuelo que desea consultar: ";
+            cin>>codic;
+            for(int m=0;m<contvuelo;m++){
+                if(libro[m].covu==codic)
+                cout<<"\n Las cantidad de maletas adicionales para el vuelo: "<<codic<<" es: "<<vuelo[m].radma<<endl;
+            }        
+        }
+        if(consul==1 || consul==2 || consul==3){
+            cout<<"si desea reralizar otra busqueda presione 1 si no presione otra tecla: ";
+            cin>>respf;
+        }
+        if(consul==0){
+            cout<<"\n";
+            respf=2;
+        }
+    }while(respf==1);
+    system("cls");
+    cout<<"\t\t¡Gracias por usar el servicio de reserva de vuelos de la Aereolinea Emiratos Arabes Unidos!\n\t\t\t\t¡Que tengas un feliz viaje!"<<endl;
     system("pause");
 	return 0;
 }
-
-//***FUNCIONES GENERALES DE ACTIVIDADES****
-
-
-
 
 //FUNCIONES VALIDACION
 
